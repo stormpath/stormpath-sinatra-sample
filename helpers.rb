@@ -64,7 +64,7 @@ module Sinatra
       def can_delete_others
         if session[:stormpath_account_url]
           account = settings.client.accounts.get(session[:stormpath_account_url])
-          return account.groups.any? { |group| group.custom_data.get('delete_others') == "true" }
+          return account.groups.any? { |group| group.custom_data['delete_others'] == "true" }
         end
       end
 

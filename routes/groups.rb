@@ -35,8 +35,8 @@ module Sinatra
 
             group = directory.groups.get CGI.unescape(params[:group_url])
 
-            group.custom_data.put("view_classified_info", params[:view_classified_info])
-            group.custom_data.put("delete_others", params[:delete_others])
+            group.custom_data["view_classified_info"] = params[:view_classified_info]
+            group.custom_data["delete_others"] = params[:delete_others]
             group.custom_data.save
 
             redirect to ("/directories/#{CGI.escape(directory.href)}/groups/#{CGI.escape(params[:group_url])}")

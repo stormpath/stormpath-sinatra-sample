@@ -37,7 +37,7 @@ module Sinatra
             account.given_name = params[:given_name]
             account.surname = params[:surname]
             account.email = params[:email]
-            account.custom_data.put(:favorite_color, params[:custom_data][:favorite_color])
+            account.custom_data[:favorite_color] = params[:custom_data][:favorite_color]
             account.save
 
             flash[:notice] = 'Account edited successfully.'
@@ -71,7 +71,7 @@ module Sinatra
 
             begin
               account = settings.application.accounts.create account
-              account.custom_data.put(:favorite_color, params[:custom_data][:favorite_color])
+              account.custom_data[:favorite_color] = params[:custom_data][:favorite_color]
               account.save
               flash[:notice] = 'Your account was created successfully. Depending on directory configuration, you may need to validate account-creation through email.'
               redirect '/session/new'
