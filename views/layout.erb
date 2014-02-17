@@ -8,8 +8,8 @@
     <div class="navbar">
       <div class="navbar-inner">
         <a class="brand" href="/"><%= settings.application.name %></a>
-        <a class="brand" href="/account_store_mappings">Account Stores</a>
         <% if is_authenticated? %>
+          <a class="brand" href="/account_store_mappings">Account Stores</a>
           <form method="post" action="/session">
             <input class="btn logout" type="submit" value="log out | <%= session[:display_name] %>">
             <input type="hidden" value="DELETE" name="_method">
