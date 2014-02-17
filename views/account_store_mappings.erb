@@ -18,6 +18,7 @@
   </tbody>
 </table>
 
+<h2> Toggle Directories </h2>
 <table class="table">
   <thead>
     <tr>
@@ -31,12 +32,12 @@
       <td><%= directory.name %></td>
       <td>
         <% if account_stores.include?(directory) %>
-          <form action="/account_store_mappings?href=<%= CGI.escape(directory.href) %>" method='POST'>
+          <form action="/account_store_mappings/<%= CGI.escape(directory.href) %>" method='POST'>
             <input type="hidden" name="_method" value="DELETE">
             <input class="btn" type="submit" value="Delete">
           </form>
         <% else %>
-          <form action="/account_store_mappings?href=<%= CGI.escape(directory.href) %>" method='POST'>
+          <form action="/account_store_mappings/<%= CGI.escape(directory.href) %>" method='POST'>
             <input type="hidden" name="_method" value="POST">
             <input class="btn" type="submit" value="Add">
           </form>
