@@ -1,0 +1,26 @@
+<h1><%= directory.name %></h1>
+
+<h4>Directory Groups</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% directory_groups.each do |group| %>
+    <tr>
+      <td><a href="<%= "/directories/#{CGI.escape(directory.href)}/groups/#{CGI.escape(group.href)}" %>"><%= group.name %></a>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h4> Create New Group For Directory </h4>
+
+<form action='<%= "/directories/#{CGI.escape(directory.href)}/groups" %>' method="post">
+  <input id="group_name" name="group_name" type="text">
+  <br>
+  <input name="commit" type="submit" value="Create Group">
+</form>
