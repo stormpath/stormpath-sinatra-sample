@@ -2,8 +2,8 @@ module Sinatra
   module SampleApp
     module Routing
       module AccountStoreMappings
-        
         def self.registered(app)
+
           app.get '/account_store_mappings' do
             require_logged_in
             account_stores = settings.application.account_store_mappings.map(&:account_store)
@@ -18,7 +18,7 @@ module Sinatra
             redirect to ("/account_store_mappings")
           end
 
-          app.delete'/account_store_mappings' do
+          app.delete '/account_store_mappings' do
             require_logged_in
             directory = settings.client.directories.get CGI.unescape(params[:href])
             settings.application.account_store_mappings.each do |account_store_mapping|
