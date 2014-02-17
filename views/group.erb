@@ -29,18 +29,19 @@
   </thead>
   <tbody>
     <tr>
-      <td><%= group_custom_data['view_classified_info'] ? "TRUE" : "FALSE" %></td>
-      <td><%= group_custom_data['delete_others'] ? "TRUE" : "FALSE" %></td>
+      <td><%= group_custom_data['view_classified_info'] == "true" ? "TRUE" : "FALSE" %></td>
+      <td><%= group_custom_data['delete_others'] == "true" ? "TRUE" : "FALSE" %></td>
     </tr>
   </tbody>
 </table>
 
 <h4> Update Permissions </h4>
-<form accept-charset="UTF-8" action='<%= "/directories/#{CGI.escape(directory.href)}/groups/#{CGI.escape(group.href)}" %>' method="post"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put">
+<form accept-charset="UTF-8" action='<%= "/directories/#{CGI.escape(directory.href)}/groups/#{CGI.escape(group.href)}" %>' method="post">
+  <input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put">
   <label for="View_Classified_Info">View classified info</label>
   <input id="view_classified_info" name="view_classified_info" type="text" value="<%= group_custom_data['view_classified_info'] %>">
   <label for="Delete_Others">Delete others</label>
-  <input id="delete_others" name="delete_others" type="text" value="true" value="<%= group_custom_data['view_classified_info'] %>">
+  <input id="delete_others" name="delete_others" type="text" value="<%= group_custom_data['delete_others'] %>">
   <br>
   <input name="commit" type="submit" value="Change Permissions">
 </form>
