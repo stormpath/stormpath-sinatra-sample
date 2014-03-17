@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/stormpath.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/stormpath.css">
+    <title><%= settings.application.name %></title>
   </head>
   <body>
     <div class="navbar">
@@ -20,7 +21,7 @@
             </li>
             <li>
               <form method="post" action="/session">
-                <input class="btn pull-right" type="submit" value="log out | <%= session[:display_name] %>">
+                <input class="btn btn-primary pull-right" type="submit" value="log out | <%= session[:display_name] %>">
                 <input type="hidden" value="DELETE" name="_method">
               </form>
             </li>

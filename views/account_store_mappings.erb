@@ -1,4 +1,4 @@
-<h2> My Account Store Mappings </h2>
+<h2><%= settings.application.name %> Account Store Mappings: </h2>
 <table class="table">
   <thead>
     <tr>
@@ -32,12 +32,12 @@
         <% if account_stores.include?(directory) %>
           <form action="/account_store_mappings/<%= CGI.escape(directory.href) %>" method='POST'>
             <input type="hidden" name="_method" value="DELETE">
-            <input class="btn" type="submit" value="Delete">
+            <input class="btn btn-danger" type="submit" value="Delete">
           </form>
         <% else %>
           <form action="/account_store_mappings/<%= CGI.escape(directory.href) %>" method='POST'>
             <input type="hidden" name="_method" value="POST">
-            <input class="btn" type="submit" value="Add">
+            <input class="btn btn-primary" type="submit" value="Add">
           </form>
         <% end %>
       </td>

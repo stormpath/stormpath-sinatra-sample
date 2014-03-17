@@ -42,7 +42,7 @@ module Sinatra
 
             flash[:notice] = 'You have been logged out successfully.'
 
-            redirect '/session/new'
+            redirect '/'
           end
 
         end
