@@ -27,6 +27,7 @@ module Sinatra
 
               initialize_session email_or_username, authentication_result.account.href
 
+              flash[:success] = "You have logged in successfully."
               redirect '/accounts'
             rescue Stormpath::Error => error
               flash[:notice] = error.message

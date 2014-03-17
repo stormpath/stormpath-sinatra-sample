@@ -10,8 +10,8 @@ module Sinatra
 
             account = settings.client.accounts.get CGI.unescape(params[:account_url])
             account_groups = account.groups
-            application_groups = settings.application.groups
-            render_view :group_memberships, { account_groups: account_groups, application_groups: application_groups, account: account}
+            directory_groups = account.directory.groups
+            render_view :group_memberships, { account_groups: account_groups, directory_groups: directory_groups, account: account}
           end
 
           app.post '/accounts/:account_url/group_memberships/:group_url' do
@@ -38,7 +38,6 @@ module Sinatra
             redirect to ("/accounts/#{CGI.escape(params[:account_url])}/group_memberships")
           end
 
-        # 
         end
 
       end

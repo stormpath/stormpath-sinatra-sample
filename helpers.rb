@@ -12,7 +12,7 @@ module Sinatra
       end
 
       def require_logged_in()
-        redirect('/session/new') unless is_authenticated?
+        redirect('/') unless is_authenticated?
       end
 
       def require_logged_out()
@@ -21,6 +21,11 @@ module Sinatra
 
       def is_authenticated?()
         return !!session[:stormpath_account_url]
+      end
+
+      def edit_profile_url
+        account_id = CGI.escape(session[:stormpath_account_url])
+        "/accounts/#{account_id}/edit"
       end
 
       def initialize_session(display_name, stormpath_account_url)
