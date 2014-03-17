@@ -2,6 +2,8 @@
 
 This is a basic web application that will show you how to create, load, edit, and delete accounts using the Stormpath Ruby SDK and Sinatra. 
 
+![Stormpath Sinatra Sample Homepage](https://raw.githubusercontent.com/DamirSvrtan/stormpath-sinatra-sample/master/ScreenshotHomepage.png)
+
 ## Installation
 
 These installation steps assume you've already installed RubyGems. If you've not yet installed RubyGems, go [here](http://docs.rubygems.org/read/chapter/3).
