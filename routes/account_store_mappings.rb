@@ -11,16 +11,16 @@ module Sinatra
             render_view :account_store_mappings, { account_stores: account_stores, directories: directories}
           end
 
-          app.post '/account_store_mappings/:href' do
+          app.post '/account_store_mappings/:id' do
             require_logged_in
-            directory = settings.client.directories.get CGI.unescape(params[:href])
+            directory = settings.client.directories.get params[:id]
             settings.client.account_store_mappings.create(application: settings.application, account_store: directory)
             redirect to ("/account_store_mappings")
           end
 
-          app.delete '/account_store_mappings/:href' do
+          app.delete '/account_store_mappings/:id' do
             require_logged_in
-            directory = settings.client.directories.get CGI.unescape(params[:href])
+            directory = settings.client.directories.get params[:id]
             settings.application.account_store_mappings.each do |account_store_mapping|
                account_store_mapping.delete if account_store_mapping.account_store.href == directory.href
             end

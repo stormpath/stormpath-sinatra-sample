@@ -4,12 +4,12 @@ module Sinatra
       module Groups
         def self.registered(app)
 
-          app.get '/directories/:directory_url/groups/:group_url' do
+          app.get '/directories/:directory_id/groups/:group_id' do
             require_logged_in
 
-            directory = settings.client.directories.get CGI.unescape(params[:directory_url])
+            directory = settings.client.directories.get params[:directory_id]
 
-            group = directory.groups.get CGI.unescape(params[:group_url])
+            group = settings.client.groups.get params[:group_id]
 
             group_accounts = group.accounts
 
@@ -18,28 +18,28 @@ module Sinatra
             render_view :group, { group: group, directory: directory, group_accounts: group_accounts, group_custom_data: group_custom_data }
           end
 
-          app.post '/directories/:directory_url/groups' do
+          app.post '/directories/:directory_id/groups' do
             require_logged_in
 
-            directory = settings.client.directories.get CGI.unescape(params[:directory_url])
+            directory = settings.client.directories.get params[:directory_id]
 
-            directory.groups.create name: params[:group_name]
+            settings.client.groups.create name: params[:group_name]
 
-            redirect to ("/directories/#{CGI.escape(directory.href)}")
+            redirect to ("/directories/#{params[:directory_id]}")
           end
 
-          app.put '/directories/:directory_url/groups/:group_url' do
+          app.put '/directories/:directory_id/groups/:group_id' do
             require_logged_in
 
-            directory = settings.client.directories.get CGI.unescape(params[:directory_url])
+            directory = settings.client.directories.get params[:directory_id]
 
-            group = directory.groups.get CGI.unescape(params[:group_url])
+            group = settings.client.groups.get params[:group_id]
 
             group.custom_data["view_classified_info"] = params[:view_classified_info]
             group.custom_data["delete_others"] = params[:delete_others]
             group.custom_data.save
 
-            redirect to ("/directories/#{CGI.escape(directory.href)}/groups/#{CGI.escape(params[:group_url])}")
+            redirect to ("/directories/#{params[:directory_id]}/groups/#{params[:group_id]}")
           end
 
         end

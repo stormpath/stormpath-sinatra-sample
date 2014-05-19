@@ -12,9 +12,9 @@ module Sinatra
               {
                 :username => account.username,
                 :email => account.email,
-                :edit_route => "/accounts/#{CGI.escape(account.href)}/edit",
-                :delete_route => "/accounts/#{CGI.escape(account.href)}",
-                :manage_group_memberships => "/accounts/#{CGI.escape(account.href)}/group_memberships",
+                :edit_route => "/accounts/#{get_id(account)}/edit",
+                :delete_route => "/accounts/#{get_id(account)}",
+                :manage_group_memberships => "/accounts/#{get_id(account)}/group_memberships",
                 :deletable => is_admin?
               }
             end
@@ -22,18 +22,18 @@ module Sinatra
             render_view :accounts, { :accounts => accounts }
           end
 
-          app.get '/accounts/:account_url/edit' do
+          app.get '/accounts/:id/edit' do
             require_logged_in
 
-            account = settings.client.accounts.get CGI.unescape(params[:account_url])
+            account = settings.client.accounts.get params[:id]
 
             render_view :accounts_edit, { :account => account }
           end
 
-          app.patch '/accounts/:account_url' do
+          app.patch '/accounts/:id' do
             require_logged_in
 
-            account = settings.client.accounts.get CGI.unescape(params[:account_url])
+            account = settings.client.accounts.get params[:id]
             account.given_name = params[:given_name]
             account.surname = params[:surname]
             account.email = params[:email]
@@ -45,10 +45,10 @@ module Sinatra
             redirect '/accounts'
           end
 
-          app.delete '/accounts/:account_url' do
+          app.delete '/accounts/:id' do
             require_logged_in
 
-            account = settings.client.accounts.get CGI.unescape(params[:account_url])
+            account = settings.client.accounts.get params[:id]
             account.delete
 
             flash[:notice] = 'Account deleted successfully'
@@ -63,7 +63,7 @@ module Sinatra
           end
 
           app.post '/accounts' do
-            account_params  = params.select do |k, v|
+            account_params = params.select do |k, v|
               %W[given_name surname email username password].include?(k)
             end
 

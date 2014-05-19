@@ -30,12 +30,12 @@
       <td><%= directory.name %></td>
       <td>
         <% if account_stores.include?(directory) %>
-          <form action="/account_store_mappings/<%= CGI.escape(directory.href) %>" method='POST'>
+          <form action="/account_store_mappings/<%= get_id(directory) %>" method='POST'>
             <input type="hidden" name="_method" value="DELETE">
             <input class="btn btn-danger" type="submit" value="Delete">
           </form>
         <% else %>
-          <form action="/account_store_mappings/<%= CGI.escape(directory.href) %>" method='POST'>
+          <form action="/account_store_mappings/<%= get_id(directory) %>" method='POST'>
             <input type="hidden" name="_method" value="POST">
             <input class="btn btn-primary" type="submit" value="Add">
           </form>

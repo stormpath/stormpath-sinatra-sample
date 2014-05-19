@@ -5,10 +5,10 @@ module Sinatra
         def self.registered(app)
         
 
-          app.get '/directories/:directory_url' do
+          app.get '/directories/:id' do
             require_logged_in
 
-            directory = settings.client.directories.get CGI.unescape(params[:directory_url])
+            directory = settings.client.directories.get params[:id]
             directory_groups = directory.groups
 
             render_view :directory, { directory: directory, directory_groups: directory.groups }

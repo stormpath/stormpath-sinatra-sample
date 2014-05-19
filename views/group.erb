@@ -36,7 +36,7 @@
 </table>
 
 <h4> Update Permissions </h4>
-<form accept-charset="UTF-8" action='<%= "/directories/#{CGI.escape(directory.href)}/groups/#{CGI.escape(group.href)}" %>' method="post">
+<form accept-charset="UTF-8" action='<%= "/directories/#{get_id(directory)}/groups/#{get_id(group)}" %>' method="post">
   <input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put">
   <label for="View_Classified_Info">View classified info</label>
   <input id="view_classified_info" name="view_classified_info" type="text" value="<%= group_custom_data['view_classified_info'] %>">

@@ -20,11 +20,12 @@ module Sinatra
       end
 
       def is_authenticated?()
+        session
         return !!session[:stormpath_account_url]
       end
 
       def edit_profile_url
-        account_id = CGI.escape(session[:stormpath_account_url])
+        account_id = get_id session[:stormpath_account_url]
         "/accounts/#{account_id}/edit"
       end
 
@@ -50,20 +51,25 @@ module Sinatra
         @is_admin
       end
 
+      def get_id(resource_or_href)
+        href = if resource_or_href.is_a?(Stormpath::Resource::Base)
+                resource_or_href.href
+               else
+                resource_or_href
+               end
+        href.split('/').last
+      end
+
       def href_for_account_store(account_store)
         if account_store.class == Stormpath::Resource::Directory
-          "/directories/#{CGI.escape(account_store.href)}"
+          "/directories/#{get_id(account_store)}"
         else
-          "/directories/#{CGI.escape(account_store.directory.href)}/groups/#{CGI.escape(account_store.href)}"
+          "/directories/#{get_id(account_store.directory)}/groups/#{get_id(account_store)}"
         end
       end
 
       def account_store_type(account_store)
-        if account_store.class == Stormpath::Resource::Directory
-          "Directory"
-        else
-          "Group"
-        end
+        account_store.class == Stormpath::Resource::Directory ? "Directory" : "Group"
       end
 
       def can_delete_others

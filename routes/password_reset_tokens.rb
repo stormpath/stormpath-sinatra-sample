@@ -14,7 +14,7 @@ module Sinatra
           app.get '/password_reset_tokens' do
             account = settings.application.verify_password_reset_token params[:sptoken]
 
-            redirect "/password_reset_tokens/#{CGI.escape(account.href)}"
+            redirect "/password_reset_tokens/#{get_id(account)}"
           end
 
           app.post '/password_reset_tokens' do
@@ -28,14 +28,14 @@ module Sinatra
             end
           end
 
-          app.get '/password_reset_tokens/:account_url' do
-            account = settings.client.accounts.get CGI.unescape(params[:account_url])
+          app.get '/password_reset_tokens/:account_id' do
+            account = settings.client.accounts.get params[:account_id]
 
             render_view :password_reset_tokens_edit, { :account => account }
           end
 
           app.patch '/password_reset_tokens/:account_url' do
-            account = settings.client.accounts.get CGI.unescape(params[:account_url])
+            account = settings.client.accounts.get params[:account_id]
             account.password = params[:password]
             account.save
 
