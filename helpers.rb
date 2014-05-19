@@ -20,7 +20,6 @@ module Sinatra
       end
 
       def is_authenticated?()
-        session
         return !!session[:stormpath_account_url]
       end
 

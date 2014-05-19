@@ -18,10 +18,13 @@ class SampleApp < Sinatra::Base
   set :client, Stormpath::Client.new({ api_key_file_location: ENV['STORMPATH_API_KEY_FILE_LOCATION'] })
   set :application, settings.client.applications.get(ENV['STORMPATH_APPLICATION_URL'])
 
-  enable :sessions
   enable :method_override
 
   use Rack::Flash, sweep: true
+  use Rack::Session::Cookie, :key => 'rack.session',
+                             :path => '/',
+                             :expire_after => 2592000,
+                             :secret => '21314124432423423423423423434324234234'
 
   helpers Sinatra::SampleApp::Helpers
 
