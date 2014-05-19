@@ -1,5 +1,4 @@
-if ENV['STORMPATH_API_KEY_FILE_LOCATION'].nil? &&
-   ENV['STORMPATH_APPLICATION_URL'].nil?
+if ENV['STORMPATH_API_KEY_FILE_LOCATION'].nil? && ENV['STORMPATH_APPLICATION_URL'].nil?
   raise 'Both STORMPATH_API_KEY_FILE_LOCATION and STORMPATH_APPLICATION_URL must be set'
 end
 
@@ -15,13 +14,13 @@ class SampleApp < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
 
-  set :client, Stormpath::Client.new({ :api_key_file_location => ENV['STORMPATH_API_KEY_FILE_LOCATION'] })
+  set :client, Stormpath::Client.new({ api_key_file_location: ENV['STORMPATH_API_KEY_FILE_LOCATION'] })
   set :application, settings.client.applications.get(ENV['STORMPATH_APPLICATION_URL'])
 
   enable :sessions
   enable :method_override
 
-  use Rack::Flash, :sweep => true
+  use Rack::Flash, sweep: true
 
   helpers Sinatra::SampleApp::Helpers
 
