@@ -187,3 +187,46 @@ If you wish to experiment with group membership:
 7.  Select an account and then click "Assign Account"
 
 This account has now been associated with the "admin" group. Upon logging in to the sample application with this account, you will see a new "Delete" button appear next to each row in the list of accounts.
+
+## Registering via Facebook or Google
+
+Stormpath supports accessing accounts from a number of different locations including Google and Facebook. Both Google and Facebook use OAuth 2.0 protocol for authentication / authorization and Stormpath can leverage their authorization code (or access tokens) to return an Account for a given code.
+
+To use Facebook or Google login within this application, you need to create a Facebook application and(or) a Google application and appropriate directories on Stormpath.
+
+### Creating a Facebook application:
+
+1. Go to https://developers.facebook.com/, click on the Apps tab and select "Create a New App".
+2. Fill in the name of the application, and afterwards head on to the Settings menu on the left.
+3. In the settings menu enter the Contact Email information.
+4. In the settings menu click the 'Add platform' button, and select 'Website'. Under the Site URL enter http://localhost:9292/ and save changes.
+5. Go to the "Status & Review" tab on the left, and select 'Yes' for the question: "Do you want to make this app and all its live features available to the general public?" 
+6. Head on back to the Dashboard, and copy the App ID and App Secret.
+7. Open the application code and either paste the ID and Secret to the 'stormpath-sample-app.rb' or set them as appropriate environment variables.
+
+### Creating a Google application:
+
+1. Go to https://console.developers.google.com/project and click the 'CREATE PROJECT' button.
+2. Go to your project settings and click on 'APIs & auth', and afterwards 'APIs'. Enable 'Contacts API' and 'Google+ API'.
+3. In the left menu select 'Credentials' and click on 'CREATE NEW CLIENT ID'. Select 'Web Application' and fill in the AUTHORIZED JAVASCRIPT ORIGINS with http://localhost:9292 and AUTHORIZED REDIRECT URI with http://localhost:9292/auth/google_oauth2/callback
+4. Copy the Client ID and Client Secret.
+5. Open the application code and either paste the ID and Secret to the 'stormpath-sample-app.rb' or set them as appropriate environment variables.
+
+### Creating Facebook and Google Directories on Stormpath
+
+Once you get access tokens, the application will send them to Stormpath to fill in the basic info for the user.
+To be able to do that, you will need to head on to the [Stormpath Admin Console](https://api.stormpath.com) and create a Facebook and(or) a Google Directory:
+
+1. After logging in, select the Directories tab and create a new directory.
+2. Select either a Facebook or a Google Directory and enter the ID and Secret (for Google enter the Redirect URI).
+3. You'll need to add them as Account Stores for your application, so head on to the Applications tab, find your application and select it.
+4. Select the Account Stores tab, click on the 'Add Account Store' button and find your newly created Facebook/Google directory.
+5. That's it, fire up the application with 'rackup' and login via OAuth2.
+
+
+
+
+
+
+
+
