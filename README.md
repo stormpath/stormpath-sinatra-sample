@@ -60,7 +60,7 @@ $ bundle install
 
 4.  Visit the now-running site in your browser at http://0.0.0.0:9292
 
-Note: By design, you will need to first create a user with the application before being able to authenticate that user. Users already existing in your Stormpath database already will not be automatically propagated to the sample app's internal database. 
+Note: By design, you will need to first create a user with the application before being able to authenticate that user.
 
 ## Common Use Cases
 
@@ -89,7 +89,7 @@ After creating an account ("User Creation") and logging in, you will be presente
 ```ruby
 class SampleApp < Sinatra::Base
   ...
-  set :client, Stormpath::Client.new({ :api_key_file_location => ENV['STORMPATH_API_KEY_FILE_LOCATION'] })
+  set :client, Stormpath::Client.new({ api_key_file_location: ENV['STORMPATH_API_KEY_FILE_LOCATION'] })
   set :application, settings.client.applications.get(ENV['STORMPATH_APPLICATION_URL'])
   ...
 end
