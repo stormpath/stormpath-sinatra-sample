@@ -9,7 +9,7 @@
     <div class="navbar">
       <div class="navbar-inner">
         <a class="brand" href="/"><%= settings.application.name %></a>
-        <% if is_authenticated? %>
+        <% if authenticated? %>
           <ul class="nav">
             <li>
               <a href="/account_store_mappings">Account Stores</a>

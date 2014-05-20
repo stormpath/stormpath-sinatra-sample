@@ -8,7 +8,7 @@ module Sinatra
         def self.registered(app)
 
           app.get '/' do
-            if is_authenticated?
+            if authenticated?
               redirect '/accounts'
             else
               render_view :home

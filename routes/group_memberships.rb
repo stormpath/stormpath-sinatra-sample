@@ -6,7 +6,7 @@ module Sinatra
         def self.registered(app)
 
           app.get '/accounts/:account_id/group_memberships' do
-            require_logged_in
+            authenticate_user!
 
             account = settings.client.accounts.get params[:account_id]
             account_groups = account.groups
@@ -15,7 +15,7 @@ module Sinatra
           end
 
           app.post '/accounts/:account_id/group_memberships/:group_id' do
-            require_logged_in
+            authenticate_user!
             
             account = settings.client.accounts.get params[:account_id]
             group = settings.client.groups.get params[:group_id]
@@ -26,7 +26,7 @@ module Sinatra
           end
 
           app.delete '/accounts/:account_id/group_memberships/:group_id' do
-            require_logged_in
+            authenticate_user!
             
             account = settings.client.accounts.get params[:account_id]
             group = settings.client.groups.get params[:group_id]

@@ -3,19 +3,14 @@ module Sinatra
     module Routing
       module Directories
         def self.registered(app)
-        
-
           app.get '/directories/:id' do
-            require_logged_in
+            authenticate_user!
 
             directory = settings.client.directories.get params[:id]
             directory_groups = directory.groups
 
             render_view :directory, { directory: directory, directory_groups: directory.groups }
           end
-
-
-
         end
       end
     end

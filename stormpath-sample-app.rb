@@ -20,11 +20,9 @@ class SampleApp < Sinatra::Base
 
   enable :method_override
 
+  use Rack::Session::Cookie, key: 'rack.session', path: '/', expire_after: 2592000,
+                             secret: '21314124432423423423423423434324234234'
   use Rack::Flash, sweep: true
-  use Rack::Session::Cookie, :key => 'rack.session',
-                             :path => '/',
-                             :expire_after => 2592000,
-                             :secret => '21314124432423423423423423434324234234'
 
   helpers Sinatra::SampleApp::Helpers
 

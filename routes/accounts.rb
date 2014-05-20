@@ -6,16 +6,17 @@ module Sinatra
         def self.registered(app)
 
           app.get '/accounts' do
-            require_logged_in
+            authenticate_user!
 
             accounts = settings.application.accounts.map do |account|
+              account_id = get_id(account)
               {
-                :username => account.username,
-                :email => account.email,
-                :edit_route => "/accounts/#{get_id(account)}/edit",
-                :delete_route => "/accounts/#{get_id(account)}",
-                :manage_group_memberships => "/accounts/#{get_id(account)}/group_memberships",
-                :deletable => is_admin?
+                username: account.username,
+                email: account.email,
+                edit_route: "/accounts/#{account_id}/edit",
+                delete_route: "/accounts/#{account_id}",
+                manage_group_memberships: "/accounts/#{account_id}/group_memberships",
+                deletable: is_admin?
               }
             end
 
@@ -23,7 +24,7 @@ module Sinatra
           end
 
           app.get '/accounts/:id/edit' do
-            require_logged_in
+            authenticate_user!
 
             account = settings.client.accounts.get params[:id]
 
@@ -31,7 +32,7 @@ module Sinatra
           end
 
           app.patch '/accounts/:id' do
-            require_logged_in
+            authenticate_user!
 
             account = settings.client.accounts.get params[:id]
             account.given_name = params[:given_name]
@@ -46,7 +47,7 @@ module Sinatra
           end
 
           app.delete '/accounts/:id' do
-            require_logged_in
+            authenticate_user!
 
             account = settings.client.accounts.get params[:id]
             account.delete

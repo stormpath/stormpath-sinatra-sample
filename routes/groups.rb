@@ -5,7 +5,7 @@ module Sinatra
         def self.registered(app)
 
           app.get '/directories/:directory_id/groups/:group_id' do
-            require_logged_in
+            authenticate_user!
 
             directory = settings.client.directories.get params[:directory_id]
 
@@ -19,7 +19,7 @@ module Sinatra
           end
 
           app.post '/directories/:directory_id/groups' do
-            require_logged_in
+            authenticate_user!
 
             directory = settings.client.directories.get params[:directory_id]
 
@@ -29,7 +29,7 @@ module Sinatra
           end
 
           app.put '/directories/:directory_id/groups/:group_id' do
-            require_logged_in
+            authenticate_user!
 
             directory = settings.client.directories.get params[:directory_id]
 

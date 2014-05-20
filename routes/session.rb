@@ -36,7 +36,7 @@ module Sinatra
           end
 
           app.delete '/session' do
-            require_logged_in
+            authenticate_user!
 
             destroy_session
 

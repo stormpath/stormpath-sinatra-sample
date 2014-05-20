@@ -11,15 +11,15 @@ module Sinatra
         erb view, :layout => true, :locals => locals
       end
 
-      def require_logged_in()
-        redirect('/') unless is_authenticated?
+      def authenticate_user!
+        redirect('/') unless authenticated?
       end
 
-      def require_logged_out()
-        redirect('/accounts') if is_authenticated?
+      def require_logged_out
+        redirect('/accounts') if authenticated?
       end
 
-      def is_authenticated?()
+      def authenticated?
         return !!session[:stormpath_account_url]
       end
 
@@ -33,13 +33,13 @@ module Sinatra
         session[:stormpath_account_url] = stormpath_account_url
       end
 
-      def destroy_session()
+      def destroy_session
         session.delete(:display_name)
         session.delete(:stormpath_account_url)
         @is_admin = false
       end
 
-      def is_admin?()
+      def is_admin?
         if not @is_admin
           account = settings.client.accounts.get(session[:stormpath_account_url])
           @is_admin = account.groups.any? do |group|
