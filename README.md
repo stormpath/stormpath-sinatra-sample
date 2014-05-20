@@ -47,7 +47,7 @@ $ bundle install
 3.  Run the application with Rack (installed by Bundler):
 
     ```
-    $ rackup config.ru
+    $ rackup
     ```
 
     You should see output resembling the following:
@@ -72,9 +72,9 @@ To create your first account:
 
 1.  Fire up the demo application, as explained in the Quickstart Guide
 
-2.  Open http://0.0.0.0:9292 in your web browser
+2.  Open http://localhost:9292 in your web browser
 
-3.  Click the "Don't have an account?" link
+3.  Click the "Register" button
 
 4.  Complete the form and click the "Save" button
 
@@ -222,11 +222,3 @@ To be able to do that, you will need to head on to the [Stormpath Admin Console]
 3. You'll need to add them as Account Stores for your application, so head on to the Applications tab, find your application and select it.
 4. Select the Account Stores tab, click on the 'Add Account Store' button and find your newly created Facebook/Google directory.
 5. That's it, fire up the application with 'rackup' and login via OAuth2.
-
-
-
-
-
-
-
-
