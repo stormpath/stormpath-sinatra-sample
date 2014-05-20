@@ -7,6 +7,8 @@ require 'rack-flash'
 require 'stormpath-sdk'
 require 'cgi'
 require 'pry'
+require 'omniauth-facebook'
+require 'omniauth-google-oauth2'
 
 require_relative 'helpers'
 require_relative 'routes/init'
@@ -35,4 +37,14 @@ class SampleApp < Sinatra::Base
   register Sinatra::SampleApp::Routing::GroupMemberships
   register Sinatra::SampleApp::Routing::Directories
   register Sinatra::SampleApp::Routing::Groups
+  register Sinatra::SampleApp::Routing::Omniauth
+
+  use OmniAuth::Builder do
+    if ENV['STORMPATH_SINATRA_FACEBOOK_ID'] and ENV['STORMPATH_SINATRA_FACEBOOK_SECRET']
+      provider :facebook, ENV['STORMPATH_SINATRA_FACEBOOK_ID'], ENV['STORMPATH_SINATRA_FACEBOOK_SECRET']
+    end
+    if ENV['STORMPATH_SINATRA_GOOGLE_ID'] and ENV['STORMPATH_SINATRA_GOOGLE_SECRET']
+      provider :google_oauth2, ENV['STORMPATH_SINATRA_GOOGLE_ID'], ENV['STORMPATH_SINATRA_GOOGLE_SECRET']
+    end
+  end
 end
