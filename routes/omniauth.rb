@@ -7,21 +7,22 @@ module Sinatra
 
         def self.registered(app)
           app.get "/auth/:provider/callback" do
-            provider = params[:provider]
-            case provider
-            when 'facebook'
-              access_token = request.env["omniauth.auth"]['credentials']['token']
-              request = Stormpath::Provider::FacebookAccountRequest.new(:access_token, access_token)
-            when 'google_oauth2'
-              access_token = env["omniauth.auth"]["credentials"]["token"]
-              request = Stormpath::Provider::GoogleAccountRequest.new(:access_token, access_token)
+
+            provider = if params[:provider] == 'facebook'
+              'facebook'
+            else
+              'google'
             end
 
+            access_token = env["omniauth.auth"]['credentials']['token']
+
+            request = Stormpath::Provider::AccountRequest.new(provider, :access_token, access_token)
             result = settings.application.get_provider_account(request)
-            if result.is_new_account?
-              flash[:notice] = "Welcome to Stormpath Sinatra Sample!"
+
+            flash[:notice] = if result.is_new_account?
+              "Welcome to Stormpath Sinatra Sample!"
             else
-              flash[:notice] = "Welcome back!"
+              "Welcome back!"
             end
 
             account = result.account
