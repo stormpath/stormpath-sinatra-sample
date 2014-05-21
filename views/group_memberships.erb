@@ -1,0 +1,29 @@
+<h4><%= account.username %>'s Groups </h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Group Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% directory_groups.each do |directory_group| %>
+    <tr>
+      <td><%= directory_group.name %></td>
+      <td>
+        <% if account_groups.include? directory_group %>
+          <form action='<%= "/accounts/#{get_id(account)}/group_memberships/#{get_id(directory_group)}" %>' method='POST'
+            onsubmit="javascript:return confirm('Are you sure you want to delete this group membership?');">
+            <input type="hidden" name="_method" value="Delete">
+            <input class="btn btn-danger" type="submit" value="Remove">
+          </form>
+        <% else %>
+          <form action='<%= "/accounts/#{get_id(account)}/group_memberships/#{get_id(directory_group)}" %>' method='POST'>
+            <input type="hidden" name="_method" value="Post">
+            <input class="btn btn-primary" type="submit" value="Add">
+          </form>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,34 @@
+<h1>Edit Account</h1>
+
+<form class="form-horizontal" action="/accounts/<%= get_id(account) %>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+  <div class="control-group">
+    <label class="control-label" for="given_name">Given Name</label>
+    <div class="controls">
+      <input value="<%= account.given_name %>" type="text" name="given_name" id="given_name" placeholder="Given Name">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="surname">Surname</label>
+    <div class="controls">
+      <input value="<%= account.surname %>" type="text" name="surname" id="surname" placeholder="Surname">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="email">Email</label>
+    <div class="controls">
+      <input value="<%= account.email %>" type="text" name="email" id="email" placeholder="Email">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="custom_data[favorite_color]">Favorite Color</label>
+    <div class="controls">
+      <input value="<%= account.custom_data["favorite_color"] %>" type="text" name="custom_data[favorite_color]" id="custom_data[favorite_color]" placeholder="Favorite Color">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" value="Save" class="btn-primary btn btn-large">
+    </div>
+  </div>
+</form>

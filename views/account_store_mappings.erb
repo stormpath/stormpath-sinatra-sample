@@ -1,0 +1,47 @@
+<h2><%= settings.application.name %> Account Store Mappings: </h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Account Store Type</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% account_stores.each do |account_store| %>
+    <tr>
+      <td><a href="<%= href_for_account_store(account_store) %>"><%= account_store.name %></a></td>
+      <td><%= account_store_type(account_store) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h2> Toggle Directories </h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Toggle mapping</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% directories.each do |directory| %>
+    <tr>
+      <td><%= directory.name %></td>
+      <td>
+        <% if account_stores.include?(directory) %>
+          <form action="/account_store_mappings/<%= get_id(directory) %>" method='POST'>
+            <input type="hidden" name="_method" value="DELETE">
+            <input class="btn btn-danger" type="submit" value="Delete">
+          </form>
+        <% else %>
+          <form action="/account_store_mappings/<%= get_id(directory) %>" method='POST'>
+            <input type="hidden" name="_method" value="POST">
+            <input class="btn btn-primary" type="submit" value="Add">
+          </form>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,47 @@
+<h1>Group name: <%= group.name %></h1>
+<br>
+<h4>Group Accounts</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% group_accounts.each do |account| %>
+    <tr>
+      <td><%= account.username %></td>
+      <td><%= account.email %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<h4>Custom Data Permissions</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Can view classified information</th>
+      <th>Can delete others</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= group_custom_data['view_classified_info'] == "true" ? "TRUE" : "FALSE" %></td>
+      <td><%= group_custom_data['delete_others'] == "true" ? "TRUE" : "FALSE" %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4> Update Permissions </h4>
+<form accept-charset="UTF-8" action='<%= "/directories/#{get_id(directory)}/groups/#{get_id(group)}" %>' method="post">
+  <input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put">
+  <label for="View_Classified_Info">View classified info</label>
+  <input id="view_classified_info" name="view_classified_info" type="text" value="<%= group_custom_data['view_classified_info'] %>">
+  <label for="Delete_Others">Delete others</label>
+  <input id="delete_others" name="delete_others" type="text" value="<%= group_custom_data['delete_others'] %>">
+  <br>
+  <input name="commit" type="submit" class="btn btn-primary btn-large" value="Change Permissions">
+</form>

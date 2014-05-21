@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/stormpath.css">
+    <title><%= settings.application.name %></title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="/"><%= settings.application.name %></a>
+        <% if authenticated? %>
+          <ul class="nav">
+            <li>
+              <a href="/account_store_mappings">Account Stores</a>
+            </li>
+          </ul>
+          <ul class="nav pull-right">
+            <li>
+              <a href="<%= edit_profile_url %>">Edit Profile</a>
+            </li>
+            <li>
+              <form method="post" action="/session">
+                <input class="btn btn-primary pull-right" type="submit" value="log out | <%= session[:display_name] %>">
+                <input type="hidden" value="DELETE" name="_method">
+              </form>
+            </li>
+          </ul>
+        <% else %>
+          <ul class="nav pull-right">
+            <li>
+              <a href="/accounts/new">Register</a>
+            </li>
+            <li>
+              <a href="/session/new">Login</a>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <div class="well container">
+
+      <% if flash[:notice] %>
+        <div class="alert alert-info"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:success] %>
+        <div class="alert alert-success"><%= flash[:success] %></div>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
+  </body>
+</html>
